@@ -15,6 +15,6 @@ namespace Api.Services
 
 
         Task<Car[]> GetCars();
-        Task<Car> GetCar(int CarId);
+        Task<Car> GetCar(long CarId);
     }
 }

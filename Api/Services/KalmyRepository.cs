@@ -46,7 +46,7 @@ namespace Api.Services
 
 
 
-        public async Task<Car> GetCar(int CarId)
+        public async Task<Car> GetCar(long CarId)
         {
             _logger.LogInformation($"Getting Car for id {CarId}");
 
