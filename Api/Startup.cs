@@ -36,6 +36,7 @@ namespace Api
             services.AddDbContext<KalmyContext>();
             services.AddScoped<IKalmyRepository, KalmyRepository>();
             services.AddAutoMapper();
+            services.AddCors();
             services.AddMvc().AddJsonOptions(o =>
             {
                 o.JsonSerializerOptions.PropertyNamingPolicy = null;
@@ -100,6 +101,7 @@ namespace Api
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
