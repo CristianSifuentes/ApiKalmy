@@ -9,12 +9,13 @@ namespace Api.Data.Entities
     {
         protected BaseEntity()
         {
-            FechaCreacion = DateTime.Now;
-            FechaModificacion = DateTime.Now;
+            CreatedAt = DateTime.Now;
+            ModifiedAt = DateTime.Now;
         }
         [DataType(DataType.DateTime)]
-        public DateTime FechaCreacion { get; private set; }
+        public DateTime CreatedAt { get; private set; }
+
         [DataType(DataType.DateTime)]
-        public DateTime? FechaModificacion { get; set; }
+        public DateTime? ModifiedAt { get; set; }
     }
 }

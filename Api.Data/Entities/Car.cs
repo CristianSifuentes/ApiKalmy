@@ -8,9 +8,6 @@ namespace Api.Data.Entities
 {
     public class Car : BaseEntity , IUserAudit, IEntity<long>
     {
-        public Car() : base()
-        {
-        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
