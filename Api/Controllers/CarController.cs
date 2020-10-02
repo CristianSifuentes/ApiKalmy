@@ -9,6 +9,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Api.Controllers
 {
@@ -108,6 +110,58 @@ namespace Api.Controllers
             }
         }
 
-        
+        [HttpDelete("{carId}")]
+        public async Task<IActionResult> Delete(int carId)
+        {
+            try
+            {
+                var oldcar = await _eventRepository.GetCar(carId);
+                if (oldcar == null) return NotFound($"Could not find car with id {carId}");
+
+                _eventRepository.Delete(oldcar);
+                if (await _eventRepository.Save())
+                {
+                    return NoContent();
+                }
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+        }
+
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchByDate(string parameter1, string parameter2 = "")
+        {
+            try
+            {
+                var results = await _eventRepository.SearchByDate();
+
+                //dynamic jsonObjectx = new JObject();
+                //jsonObjectx.Date = DateTime.Now;
+                //jsonObjectx.Album = "Me Against the world";
+
+                //dynamic jsonObject = new JObject();
+                //jsonObject.Date = DateTime.Now;
+                //jsonObject.Album = "Me Against the world";
+                //jsonObject.Year = 1995;
+                //jsonObject.Artist = "2Pac";
+                //jsonObject.Oher = jsonObjectx;
+
+                return Content(JsonConvert.SerializeObject(results), "application/json");
+
+                //var mappedEntities = _mapper.Map<CarDto[]>(results);
+                //return Ok(mappedEntities);
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+        }
+
+
     }
 }
