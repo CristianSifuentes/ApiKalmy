@@ -1,24 +1,32 @@
-# Compiled Object files
-*.o
-*.obj
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# Visual Studio Code
+.vscode
 
-# Compiled Static libraries
-*.a
-*.lib
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
-# Executables
-*.exe
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+msbuild.log
+msbuild.err
+msbuild.wrn
 
-# DUB
-.dub
-docs.json
-__dummy.html
-docs/
-
-# Code coverage
-*.lst
+# Visual Studio 2015
+.vs/
