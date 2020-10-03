@@ -13,7 +13,7 @@ namespace Api.Services.Dynamic
         {
 
         }
-        public override dynamic Request(string parameter1, string parameter2, KalmyContext context)
+        public override dynamic Request(KalmyContext context)
         {
 
             var query = from item in context.Car

@@ -48,7 +48,7 @@ INSERT INTO [dbo].[Car]
            (getdate()
            ,getdate()
            ,'medium'
-           ,'nissan'
+           ,'tesla'
            ,2018
            ,-1
            ,null)

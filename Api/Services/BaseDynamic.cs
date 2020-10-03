@@ -11,7 +11,6 @@ namespace Api.Services
         public BaseDynamic()
         {
         }
-
-        public abstract dynamic Request(string parameter1, string parameter2, KalmyContext context);
+        public abstract dynamic Request(KalmyContext context);
     }
 }

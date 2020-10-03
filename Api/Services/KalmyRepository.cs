@@ -19,9 +19,9 @@ namespace Api.Services
         private readonly ILogger<KalmyRepository> _logger;
         private BaseDynamic baseDynamic;
 
-        public KalmyRepository(KalmyContext eventContext, ILogger<KalmyRepository> logger)
+        public KalmyRepository(KalmyContext kalmyContext, ILogger<KalmyRepository> logger)
         {
-            _kalmyContext = eventContext;
+            _kalmyContext = kalmyContext;
             _logger = logger;
         }
 
@@ -74,11 +74,32 @@ namespace Api.Services
         public async Task<dynamic> SearchByDate(string parameter1, string parameter2)
         {
             _logger.LogInformation($"Getting SearchByDate");
-            baseDynamic = new CTypeDynamic();
 
-            var result = baseDynamic.Request(parameter1, parameter2, _kalmyContext);
 
-            return await result;
+            if (parameter1 == "Type" && parameter2 == "")
+                baseDynamic = new CTypeDynamic();
+            else if (parameter1 == "Type" && parameter2 == "Model")
+                baseDynamic = new CTypeModelDynamic();
+            else if (parameter1 == "Type" && parameter2 == "Brand")
+                baseDynamic = new CTypeBrandDynamic();
+
+            else if (parameter1 == "Model" && parameter2 == "")
+                baseDynamic = new CModelDynamic();
+            else if (parameter1 == "Model" && parameter2 == "Type")
+                baseDynamic = new CModelTypeDynamic();
+            else if (parameter1 == "Model" && parameter2 == "Brand")
+                baseDynamic = new CModelBrandDynamic();
+
+            else if (parameter1 == "Brand" && parameter2 == "")
+                baseDynamic = new CBrandDynamic();
+            else if (parameter1 == "Brand" && parameter2 == "Type")
+                baseDynamic = new CBrandTypeDynamic();
+            else if (parameter1 == "Brand" && parameter2 == "Model")
+                baseDynamic = new CBrandModelDynamic();
+
+            var result = baseDynamic.Request(_kalmyContext);
+
+            return result;
 
             //var query = _kalmyContext.Car
             //            .OrderBy(c => c.Id);
@@ -166,4 +187,13 @@ namespace Api.Services
         }
 
     }
+
+
+    public static class SeparatorChars
+    {
+        public static String Type { get { return "Type"; } }
+        public static String Model { get { return "Model"; } }
+        public static String Brand { get { return "Brand"; } }
+    }
+
 }

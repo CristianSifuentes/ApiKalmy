@@ -13,24 +13,19 @@ namespace Api.Services.Dynamic
         {
 
         }
-        public override dynamic Request(string parameter1, string parameter2, KalmyContext context)
+        public override dynamic Request(KalmyContext context)
         {
-            
-            var query = from item in context.Car
-                         group item by item.Model into g
-                         select new { CategoryName = g.Key, Count = g.Count() };
 
-           JObject jObject =
-            new JObject(
-            new JProperty("channel",
-            new JObject(
-                new JProperty("item",
-                    new JArray(
-                        from p in query
-                        orderby p.CategoryName
-                        select new JObject(
-                            new JProperty("name", p.CategoryName),
-                            new JProperty("value", p.Count)))))));
+            var query = from item in context.Car
+                        group item by item.Type into g
+                        select new { CategoryName = g.Key, Count = g.Count() };
+
+            JArray jObject =
+               new JArray( from p in query
+                         orderby p.CategoryName
+                         select new JObject(
+                             new JProperty("name", p.CategoryName),
+                             new JProperty("value", p.Count)));
 
             return jObject;
         }

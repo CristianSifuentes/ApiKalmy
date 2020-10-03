@@ -133,12 +133,20 @@ namespace Api.Controllers
         }
 
 
-        [HttpGet("search")]
-        public async Task<IActionResult> SearchByDate(string parameter1, string parameter2 = "")
+        [HttpPost("search")]
+        public async Task<IActionResult> SearchByDate(
+            //string parameter1, string parameter2 = ""
+            QueryParametersDto dto
+            )
         {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             try
             {
-                var results = await _eventRepository.SearchByDate(parameter1, parameter2);
+                var results = await _eventRepository.SearchByDate(dto.Parameter1, dto.Parameter2);
 
 
                 return Content(JsonConvert.SerializeObject(results), "application/json");
