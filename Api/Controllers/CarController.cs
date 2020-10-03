@@ -138,18 +138,8 @@ namespace Api.Controllers
         {
             try
             {
-                var results = await _eventRepository.SearchByDate();
+                var results = await _eventRepository.SearchByDate(parameter1, parameter2);
 
-                //dynamic jsonObjectx = new JObject();
-                //jsonObjectx.Date = DateTime.Now;
-                //jsonObjectx.Album = "Me Against the world";
-
-                //dynamic jsonObject = new JObject();
-                //jsonObject.Date = DateTime.Now;
-                //jsonObject.Album = "Me Against the world";
-                //jsonObject.Year = 1995;
-                //jsonObject.Artist = "2Pac";
-                //jsonObject.Oher = jsonObjectx;
 
                 return Content(JsonConvert.SerializeObject(results), "application/json");
 

@@ -1,5 +1,6 @@
 ﻿using Api.Context;
 using Api.Data.Entities;
+using Api.Services.Dynamic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -14,37 +15,38 @@ namespace Api.Services
 {
     public class KalmyRepository : IKalmyRepository
     {
-        private readonly KalmyContext _eventContext;
+        private readonly KalmyContext _kalmyContext;
         private readonly ILogger<KalmyRepository> _logger;
+        private BaseDynamic baseDynamic;
 
         public KalmyRepository(KalmyContext eventContext, ILogger<KalmyRepository> logger)
         {
-            _eventContext = eventContext;
+            _kalmyContext = eventContext;
             _logger = logger;
         }
 
         public void Add<T>(T entity) where T : class
         {
             _logger.LogInformation($"Adding object of type {entity.GetType()}");
-            _eventContext.Add(entity);
+            _kalmyContext.Add(entity);
         }
 
         public void Delete<T>(T entity) where T : class
         {
             _logger.LogInformation($"Deleting object of type {entity.GetType()}");
-            _eventContext.Remove(entity);
+            _kalmyContext.Remove(entity);
         }
 
         public async Task<bool> Save()
         {
             _logger.LogInformation("Saving changes");
-            return (await _eventContext.SaveChangesAsync()) >= 0;
+            return (await _kalmyContext.SaveChangesAsync()) >= 0;
         }
 
         public void Update<T>(T entity) where T : class
         {
             _logger.LogInformation($"Updating object of type {entity.GetType()}");
-            _eventContext.Update(entity);
+            _kalmyContext.Update(entity);
         }
 
 
@@ -53,7 +55,7 @@ namespace Api.Services
         {
             _logger.LogInformation($"Getting Car for id {CarId}");
 
-            var query = _eventContext.Car
+            var query = _kalmyContext.Car
                         .Where(c => c.Id == CarId);
 
             return await query.FirstOrDefaultAsync();
@@ -62,32 +64,38 @@ namespace Api.Services
         public async Task<Car[]> GetCars()
         {
             _logger.LogInformation($"Getting all Cars");
-            var query = _eventContext.Car
+            var query = _kalmyContext.Car
                         .OrderBy(c => c.Id);
 
             return await query.ToArrayAsync();
         }
 
 
-        public async Task<dynamic> SearchByDate()
+        public async Task<dynamic> SearchByDate(string parameter1, string parameter2)
         {
-            _logger.LogInformation($"Getting all Cars");
-            //var query = _eventContext.Car
+            _logger.LogInformation($"Getting SearchByDate");
+            baseDynamic = new CTypeDynamic();
+
+            var result = baseDynamic.Request(parameter1, parameter2, _kalmyContext);
+
+            return await result;
+
+            //var query = _kalmyContext.Car
             //            .OrderBy(c => c.Id);
 
             //return await query.ToArrayAsync();
 
-            var query = _eventContext.Car
-                 .GroupBy(item => item.Type)
-                 .Select(g => new
-                 {
-                     CategoryName = g.Key,
-                     Count = g.Sum(item => item.Type.Count())
-                 });
+            //var query = _kalmyContext.Car
+            //     .GroupBy(item => item.Type)
+            //     .Select(g => new
+            //     {
+            //         CategoryName = g.Key,
+            //         Count = g.Sum(item => item.Type.Count())
+            //     });
 
-            var query2 = from item in _eventContext.Car
-                         group item by item.Type into g
-                         select new { CategoryName = g.Key, Count = g.Count() };
+            //var query2 = from item in _kalmyContext.Car
+            //             group item by item.Type into g
+            //             select new { CategoryName = g.Key, Count = g.Count() };
 
             //foreach (var item in query2)
             //{
@@ -119,28 +127,41 @@ namespace Api.Services
             //new JObject(
             //    new JProperty("channel",
             //        new JObject(
-            //            new JProperty("title", "James Newton-King"),
+            //           new JProperty("title", "James Newton-King"),
             //            new JProperty("link", "http://james.newtonking.com"),
             //            new JProperty("description", "James Newton-King's blog."),
             //            new JProperty("Type",
             //                new JArray(
             //                    from p in query2
             //                    orderby p.CategoryName
+            //                   select new JObject(
+            //                       new JProperty(p.CategoryName.ToString(), p.Count)
+            //                    ))))));
+
+
+            //        JObject rssw =
+            //new JObject(
+            //    new JProperty("channel",
+            //        new JObject(
+            //            new JProperty("item",
+            //                new JArray(
+            //                    from p in query2
+            //                    orderby p.CategoryName
             //                    select new JObject(
-            //                        new JProperty(p.CategoryName.ToString(), p.Count)
-            //                     ))))));
+            //                        new JProperty("name", p.CategoryName),
+            //                        new JProperty("value", p.Count)))))));
 
 
+            //JArray rss =
+            //   new JArray(
+            //            from p in query2
+            //            orderby p.CategoryName
+            //            select new JObject(
+            //                        new JProperty("name", p.CategoryName),
+            //                        new JProperty("value", p.Count)));
 
-            JArray rss =
-               new JArray(
-                        from p in query2
-                        orderby p.CategoryName
-                        select new JObject(
-                            new JProperty(p.CategoryName.ToString(), p.Count)
-                         ));
+            //return rssw;
 
-            return rss;
 
         }
 
