@@ -1,5 +1,6 @@
 ﻿using Api.Context;
 using Api.Data.Entities;
+using Api.Data.Util;
 using Api.Services.Dynamic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -71,129 +72,39 @@ namespace Api.Services
         }
 
 
-        public async Task<dynamic> SearchByDate(string parameter1, string parameter2)
+        public async Task<dynamic> SearchByQuery(string parameter1, string parameter2)
         {
-            _logger.LogInformation($"Getting SearchByDate");
+            _logger.LogInformation($"Getting SearchByQuery");
 
 
-            if (parameter1 == "Type" && parameter2 == "")
+            if (parameter1 == SeparatorChars.Type && parameter2 == "")
                 baseDynamic = new CTypeDynamic();
-            else if (parameter1 == "Type" && parameter2 == "Model")
+            else if (parameter1 == SeparatorChars.Type && parameter2 == SeparatorChars.Model)
                 baseDynamic = new CTypeModelDynamic();
-            else if (parameter1 == "Type" && parameter2 == "Brand")
+            else if (parameter1 == SeparatorChars.Type && parameter2 == SeparatorChars.Brand)
                 baseDynamic = new CTypeBrandDynamic();
-
-            else if (parameter1 == "Model" && parameter2 == "")
+            else if (parameter1 == SeparatorChars.Model && parameter2 == "")
                 baseDynamic = new CModelDynamic();
-            else if (parameter1 == "Model" && parameter2 == "Type")
+            else if (parameter1 == SeparatorChars.Model && parameter2 == SeparatorChars.Type)
                 baseDynamic = new CModelTypeDynamic();
-            else if (parameter1 == "Model" && parameter2 == "Brand")
+            else if (parameter1 == SeparatorChars.Model && parameter2 == SeparatorChars.Brand)
                 baseDynamic = new CModelBrandDynamic();
-
-            else if (parameter1 == "Brand" && parameter2 == "")
+            else if (parameter1 == SeparatorChars.Brand && parameter2 == "")
                 baseDynamic = new CBrandDynamic();
-            else if (parameter1 == "Brand" && parameter2 == "Type")
+            else if (parameter1 == SeparatorChars.Brand && parameter2 == SeparatorChars.Type)
                 baseDynamic = new CBrandTypeDynamic();
-            else if (parameter1 == "Brand" && parameter2 == "Model")
+            else if (parameter1 == SeparatorChars.Brand && parameter2 == SeparatorChars.Model)
                 baseDynamic = new CBrandModelDynamic();
 
             var result = baseDynamic.Request(_kalmyContext);
 
             return result;
 
-            //var query = _kalmyContext.Car
-            //            .OrderBy(c => c.Id);
-
-            //return await query.ToArrayAsync();
-
-            //var query = _kalmyContext.Car
-            //     .GroupBy(item => item.Type)
-            //     .Select(g => new
-            //     {
-            //         CategoryName = g.Key,
-            //         Count = g.Sum(item => item.Type.Count())
-            //     });
-
-            //var query2 = from item in _kalmyContext.Car
-            //             group item by item.Type into g
-            //             select new { CategoryName = g.Key, Count = g.Count() };
-
-            //foreach (var item in query2)
-            //{
-            //    var tmp = item.CategoryName + " " + item.Count;
-            //}
-
-            //dynamic flexible = new ExpandoObject();
-            //flexible.Int = 3;
-            //flexible.String = "hi";
-
-            //var dictionary = (IDictionary<string, object>)flexible;
-            //dictionary.Add("Bool", false);
-
-            //var serialized = JsonConvert.SerializeObject(dictionary); // {"Int":3,"String":"hi","Bool":false}
-
-            //dynamic jsonObjectx = new JObject();
-            //jsonObjectx.Date = DateTime.Now;
-            //jsonObjectx.Album = "Me Against the world";
-
-            //dynamic jsonObject = new JObject();
-            //jsonObject.Date = DateTime.Now;
-            //jsonObject.Album = "Me Against the world";
-            //jsonObject.Year = 1995;
-            //jsonObject.Artist = "2Pac";
-            //jsonObject.Oher = jsonObjectx;
-
-
-            //        JObject rss =
-            //new JObject(
-            //    new JProperty("channel",
-            //        new JObject(
-            //           new JProperty("title", "James Newton-King"),
-            //            new JProperty("link", "http://james.newtonking.com"),
-            //            new JProperty("description", "James Newton-King's blog."),
-            //            new JProperty("Type",
-            //                new JArray(
-            //                    from p in query2
-            //                    orderby p.CategoryName
-            //                   select new JObject(
-            //                       new JProperty(p.CategoryName.ToString(), p.Count)
-            //                    ))))));
-
-
-            //        JObject rssw =
-            //new JObject(
-            //    new JProperty("channel",
-            //        new JObject(
-            //            new JProperty("item",
-            //                new JArray(
-            //                    from p in query2
-            //                    orderby p.CategoryName
-            //                    select new JObject(
-            //                        new JProperty("name", p.CategoryName),
-            //                        new JProperty("value", p.Count)))))));
-
-
-            //JArray rss =
-            //   new JArray(
-            //            from p in query2
-            //            orderby p.CategoryName
-            //            select new JObject(
-            //                        new JProperty("name", p.CategoryName),
-            //                        new JProperty("value", p.Count)));
-
-            //return rssw;
-
-
         }
 
     }
 
 
-    public static class SeparatorChars
-    {
-        public static String Type { get { return "Type"; } }
-        public static String Model { get { return "Model"; } }
-        public static String Brand { get { return "Brand"; } }
-    }
+    
 
 }

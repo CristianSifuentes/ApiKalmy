@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Api.Data.Dto;
 using Api.Data.Entities;
+using Api.Models;
 using Api.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -31,6 +33,8 @@ namespace Api.Controllers
 
 
         [HttpPost]
+        [Authorize(Policy = Policies.Admin)]
+
         public async Task<ActionResult<CarDto>> Post(CarDto dto)
         {
             try
@@ -54,6 +58,8 @@ namespace Api.Controllers
 
 
         [HttpPut("{carId}")]
+        [Authorize(Policy = Policies.Admin)]
+
         public async Task<ActionResult<CarDto>> Put(long carId, CarDto dto)
         {
             try
@@ -77,6 +83,8 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = Policies.Admin)]
+
         public async Task<ActionResult<CarDto[]>> Get()
         {
             try
@@ -93,6 +101,8 @@ namespace Api.Controllers
         }
 
         [HttpGet("{Id}")]
+        [Authorize(Policy = Policies.Admin)]
+
         public async Task<ActionResult<CarDto>> Get(int CarId)
         {
             try
@@ -111,6 +121,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{carId}")]
+        [Authorize(Policy = Policies.Admin)]
         public async Task<IActionResult> Delete(int carId)
         {
             try
@@ -134,10 +145,8 @@ namespace Api.Controllers
 
 
         [HttpPost("search")]
-        public async Task<IActionResult> SearchByDate(
-            //string parameter1, string parameter2 = ""
-            QueryParametersDto dto
-            )
+        [Authorize(Policy = Policies.Admin)]
+        public async Task<IActionResult> SearchByQuery(QueryParametersDto dto)
         {
 
             if (!ModelState.IsValid)
@@ -146,13 +155,10 @@ namespace Api.Controllers
             }
             try
             {
-                var results = await _eventRepository.SearchByDate(dto.Parameter1, dto.Parameter2);
-
+                var results = await _eventRepository.SearchByQuery(dto.Parameter1, dto.Parameter2);
 
                 return Content(JsonConvert.SerializeObject(results), "application/json");
 
-                //var mappedEntities = _mapper.Map<CarDto[]>(results);
-                //return Ok(mappedEntities);
             }
             catch (Exception)
             {

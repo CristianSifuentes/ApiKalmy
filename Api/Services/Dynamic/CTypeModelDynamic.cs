@@ -15,49 +15,33 @@ namespace Api.Services.Dynamic
         }
         public override dynamic Request(KalmyContext context)
         {
-
-            var query = from item in context.Car
-                         group item by item.Type into g
-                         select new { CategoryName = g.Key, Count = g.Count() };
-
-            //query.All(p => {
-            //    collection.AddRange(p.Departments);
-            //    p.Departments.All(u => { u.SomeProperty = null; return true; });
-            //    return true;
-            //});
+            var query = from order in context.Car
+                          group order by order.Type into g
+                          select new
+                          {
+                              CategoryName = g.Key,
+                              Count = g.Count()
+                          };
 
 
-    //        JObject rss =
-    //new JObject(
-    //    new JProperty("channel",
-    //        new JObject(
-    //            new JProperty("title", "James Newton-King"),
-    //            new JProperty("link", "http://james.newtonking.com"),
-    //            new JProperty("description", "James Newton-King's blog."),
-    //            new JProperty("item",
-    //                new JArray(
-    //                    from p in query
-    //                    orderby p.CategoryName
-    //                    select new JObject(
-    //                        new JProperty("title", p.Title),
-    //                        new JProperty("description", p.Description),
-    //                        new JProperty("link", p.Link),
-    //                        new JProperty("category",
-    //                            new JArray(
-    //                                from c in p.Categories
-    //                                select new JValue(c)))))))));
+            //var query = from item in context.Car
+            //             group item by item.Type into g
+            //             select new { CategoryName = g.Key, Count = g.Count() };
 
-            JObject jObject =
-            new JObject(
-            new JProperty("channel",
-            new JObject(
-                new JProperty("item",
-                    new JArray(
-                        from p in query
-                        orderby p.CategoryName
-                        select new JObject(
-                            new JProperty("name", p.CategoryName),
-                            new JProperty("value", p.Count)))))));
+
+            //var query2 = from item in context.Car  where item.Type == "small"
+            //            group item by item.Model into g 
+            //            select new { CategoryName = g.Key, Count = g.Count() };
+
+
+
+            JArray jObject =
+               new JArray(from p in query
+                          orderby p.CategoryName
+                          select new JObject(
+                              new JProperty("name", p.CategoryName),
+                              new JProperty("value", p.Count)));
+
 
 
             /*

@@ -22,6 +22,7 @@ namespace Api
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -36,11 +37,25 @@ namespace Api
             services.AddDbContext<KalmyContext>();
             services.AddScoped<IKalmyRepository, KalmyRepository>();
             services.AddAutoMapper();
-            services.AddCors();
+
+
             services.AddMvc().AddJsonOptions(o =>
             {
                 o.JsonSerializerOptions.PropertyNamingPolicy = null;
                 o.JsonSerializerOptions.DictionaryKeyPolicy = null;
+            });
+
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                });
             });
 
             services.AddControllers();
@@ -71,25 +86,6 @@ namespace Api
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        //public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        //{
-        //    if (env.IsDevelopment())
-        //    {
-        //        app.UseDeveloperExceptionPage();
-        //    }
-
-        //    app.UseHttpsRedirection();
-
-        //    app.UseRouting();
-
-        //    app.UseAuthorization();
-
-        //    app.UseEndpoints(endpoints =>
-        //    {
-        //        endpoints.MapControllers();
-        //    });
-        //}
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -99,9 +95,14 @@ namespace Api
             }
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors();
+
             app.UseAuthentication();
+
             app.UseAuthorization();
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

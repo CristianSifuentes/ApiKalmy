@@ -17,7 +17,7 @@ namespace Api.Services
         Task<Car[]> GetCars();
         Task<Car> GetCar(long CarId);
 
-        Task<dynamic> SearchByDate(string p1, string p2);
+        Task<dynamic> SearchByQuery(string p1, string p2);
 
 
     }
