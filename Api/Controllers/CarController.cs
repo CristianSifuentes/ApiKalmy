@@ -160,7 +160,7 @@ namespace Api.Controllers
                 return Content(JsonConvert.SerializeObject(results), "application/json");
 
             }
-            catch (Exception)
+            catch (Exception x)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }

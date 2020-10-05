@@ -16,23 +16,37 @@ namespace Api.Services.Dynamic
         public override dynamic Request(KalmyContext context)
         {
 
-            var query = from item in context.Car
-                         group item by item.Model into g
-                         select new { CategoryName = g.Key, Count = g.Count() };
+            var testdates = (from o in context.Car
+                             select new
+                             {
+                                 Model = o.Model
+                             }).Distinct().OrderBy(x => x.Model);
 
-           JObject jObject =
-            new JObject(
-            new JProperty("channel",
-            new JObject(
-                new JProperty("item",
-                    new JArray(
-                        from p in query
-                        orderby p.CategoryName
-                        select new JObject(
-                            new JProperty("name", p.CategoryName),
-                            new JProperty("value", p.Count)))))));
+            JArray jArray = new JArray();
+            foreach (var x in testdates)
+            {
+                JObject jObject = new JObject();
+                int model = x.Model;
+                JProperty property = new JProperty("name", model);
+                JArray jArray2 = new JArray();
+                var query = from item in context.Car
+                            where item.Model == model
+                            group item by item.Brand into g
+                            select new { CategoryName = g.Key, Count = g.Count() };
 
-            return jObject;
+                foreach (var z in query)
+                {
+                    JObject jObjectx = new JObject();
+                    jObjectx.Add(new JProperty("name", z.CategoryName));
+                    jObjectx.Add(new JProperty("size", z.Count));
+                    jArray2.Add(jObjectx);
+                }
+                JProperty propertyc = new JProperty("children", jArray2);
+                jObject.Add(property);
+                jObject.Add(propertyc);
+                jArray.Add(jObject);
+            }
+            return jArray;
         }
     }
 }

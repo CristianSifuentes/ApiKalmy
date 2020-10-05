@@ -7,6 +7,20 @@ using System.Threading.Tasks;
 
 namespace Api.Services.Dynamic
 {
+
+    public class Item
+    {
+        public string name { get; set; }
+
+
+    }
+
+    public class children
+    {
+        public string name { get; set; }
+        public int count { get; set; }
+
+    }
     class CTypeModelDynamic : BaseDynamic
     {
         public CTypeModelDynamic() : base()
@@ -15,66 +29,38 @@ namespace Api.Services.Dynamic
         }
         public override dynamic Request(KalmyContext context)
         {
-            var query = from order in context.Car
-                          group order by order.Type into g
-                          select new
-                          {
-                              CategoryName = g.Key,
-                              Count = g.Count()
-                          };
 
+            var testdates = (from o in context.Car
+                             select new
+                             {
+                                 Type = o.Type
+                             }).Distinct().OrderBy(x => x.Type);
 
-            //var query = from item in context.Car
-            //             group item by item.Type into g
-            //             select new { CategoryName = g.Key, Count = g.Count() };
+            JArray jArray = new JArray();
+            foreach (var x in testdates)
+            {
+                JObject jObject = new JObject();
+                string type = x.Type.ToString();
+                JProperty property = new JProperty("name", type);
+                JArray jArray2 = new JArray();
+                var query = from item in context.Car
+                            where item.Type == type
+                            group item by item.Model into g
+                            select new { CategoryName = g.Key, Count = g.Count() };
 
-
-            //var query2 = from item in context.Car  where item.Type == "small"
-            //            group item by item.Model into g 
-            //            select new { CategoryName = g.Key, Count = g.Count() };
-
-
-
-            JArray jObject =
-               new JArray(from p in query
-                          orderby p.CategoryName
-                          select new JObject(
-                              new JProperty("name", p.CategoryName),
-                              new JProperty("value", p.Count)));
-
-
-
-            /*
-             const data = [
-  {
-    name: 'axis',
-    children: [
-      { name: 'Axes', size: 1302 },
-      { name: 'Axis', size: 24593 },
-      { name: 'AxisGridLine', size: 652 },
-      { name: 'AxisLabel', size: 636 },
-      { name: 'CartesianAxes', size: 6703 },
-    ],
-  },
-  {
-    name: 'controls',
-    children: [
-      { name: 'AnchorControl', size: 2138 },
-      { name: 'ClickControl', size: 3824 },
-      { name: 'Control', size: 1353 },
-      { name: 'ControlList', size: 4665 },
-      { name: 'DragControl', size: 2649 },
-      { name: 'ExpandControl', size: 2832 },
-      { name: 'HoverControl', size: 4896 },
-      { name: 'IControl', size: 763 },
-      { name: 'PanZoomControl', size: 5222 },
-      { name: 'SelectionControl', size: 7862 },
-      { name: 'TooltipControl', size: 8435 },
-    ],
-  },
-             */
-
-            return jObject;
+                foreach (var z in query)
+                {
+                    JObject jObjectx = new JObject();
+                    jObjectx.Add(new JProperty("name", z.CategoryName));
+                    jObjectx.Add(new JProperty("size", z.Count));
+                    jArray2.Add(jObjectx);
+                }
+                JProperty propertyc = new JProperty("children", jArray2);
+                jObject.Add(property);
+                jObject.Add(propertyc);
+                jArray.Add(jObject);
+            }
+            return jArray;
         }
     }
 }
