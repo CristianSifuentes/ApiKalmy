@@ -33,7 +33,7 @@ namespace Api.Controllers
 
 
         [HttpPost]
-        [Authorize(Policy = Policies.Admin)]
+        [Authorize(Policy = Policies.User)]
 
         public async Task<ActionResult<CarDto>> Post(CarDto dto)
         {
@@ -58,7 +58,7 @@ namespace Api.Controllers
 
 
         [HttpPut("{carId}")]
-        [Authorize(Policy = Policies.Admin)]
+        [Authorize(Policy = Policies.User)]
 
         public async Task<ActionResult<CarDto>> Put(long carId, CarDto dto)
         {
@@ -83,7 +83,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = Policies.Admin)]
+        [Authorize(Policy = Policies.User)]
 
         public async Task<ActionResult<CarDto[]>> Get()
         {
@@ -100,14 +100,14 @@ namespace Api.Controllers
             }
         }
 
-        [HttpGet("{Id}")]
-        [Authorize(Policy = Policies.Admin)]
+        [HttpGet("{carId}")]
+        [Authorize(Policy = Policies.User)]
 
-        public async Task<ActionResult<CarDto>> Get(int CarId)
+        public async Task<ActionResult<CarDto>> Get(int carId)
         {
             try
             {
-                var result = await _eventRepository.GetCar(CarId);
+                var result = await _eventRepository.GetCar(carId);
 
                 if (result == null) return NotFound();
 
@@ -121,7 +121,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{carId}")]
-        [Authorize(Policy = Policies.Admin)]
+        [Authorize(Policy = Policies.User)]
         public async Task<IActionResult> Delete(int carId)
         {
             try

@@ -8,19 +8,6 @@ using System.Threading.Tasks;
 namespace Api.Services.Dynamic
 {
 
-    public class Item
-    {
-        public string name { get; set; }
-
-
-    }
-
-    public class children
-    {
-        public string name { get; set; }
-        public int count { get; set; }
-
-    }
     class CTypeModelDynamic : BaseDynamic
     {
         public CTypeModelDynamic() : base()
