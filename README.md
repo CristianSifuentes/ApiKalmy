@@ -23,9 +23,9 @@ _Que cosas necesitas para instalar el software y como instalarlas_
 
 ### Instalación 🔧
 
-_1.- El primer paso es crear en tu server local una base de datos con el nombre KalmyDBDev_
+_El primer paso es crear en tu server local una base de datos con el nombre KalmyDBDev_
 
-_puedes dirigirte al archivo appsettings.json en la sección ConnectionStrings para modificar lo necesario para que la conexión apunte a la base de datos creada anteriormente_
+_Puedes dirigirte al archivo appsettings.json en la sección ConnectionStrings para modificar lo necesario para que la conexión apunte a la base de datos creada anteriormente_
 
 ```
  "ConnectionStrings": {
@@ -33,7 +33,7 @@ _puedes dirigirte al archivo appsettings.json en la sección ConnectionStrings p
 
   }
 ```
-_Se debe tomar en cuenta si el server local tiene una configuracion especifica para un usuario es necesario que la cadena de conexión los especifique_
+_Se debe tomar en cuenta si el server local tiene una configuración especifica para un usuario es necesario que la cadena de conexión los especifique_
 
 ```
  "ConnectionStrings": {
@@ -42,7 +42,7 @@ _Se debe tomar en cuenta si el server local tiene una configuracion especifica p
   }
 ```
 
-_Lo siguiente es correr las migraciones para la creación de las tablas, para esto de se debe seleccionar el proyect "Api" en la "Consola de administracion de paquetes" y correr el siguiente comando_
+_Lo siguiente es correr las migraciones para la creación de las tablas, para esto se debe seleccionar el proyecto "Api" en la "Consola de administración de paquetes" y correr el siguiente comando_
 
 ```
 update-database
@@ -56,10 +56,25 @@ enable-migrations
 
 _Asegurate que las tablas se crearon en tu manejador de base de datos_
 
+_Dentro de la ruta "ApiKalmy\Api.Data" existe un archivo de nombre Information.sql, el cual tiene una carga inicial para probar con información pre-cargada_
 
 ## Ejecutando las pruebas ⚙️
 
 _El proyecto esta configurado usando swagger, una vez desplegado el proyecto de mostrara una pantalla con los endpoints creados en el proyecto_
+
+
+### Códigos de respuesta del protocolo HTTP 🔩
+
+```
+200: Success
+204: No Content
+400: Bad request
+401: Unauthorized
+404: Cannot be found
+405: Method not allowed
+422: Unprocessable Entity 
+50X: Server Error
+```
 
 ### Analice las pruebas end-to-end 🔩
 
