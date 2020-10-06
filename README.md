@@ -1,6 +1,7 @@
+
 # Título del Proyecto
 
-_Acá va un párrafo que describa lo que es el proyecto_
+_ApiKalmy es un proyecto desarrollado con NET CORE 3.1 el cual permite insertar, modificar, eliminar y consultar información de automóviles_
 
 ## Comenzando 🚀
 
@@ -14,23 +15,30 @@ Mira **Deployment** para conocer como desplegar el proyecto.
 _Que cosas necesitas para instalar el software y como instalarlas_
 
 ```
-Da un ejemplo
+* Visual studio 2019
+* Sql Server 2018
+* nodejs
 ```
 
 ### Instalación 🔧
 
-_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
+_1.- El primer paso es crear en tu server local una base de datos con el nombre KalmyDBDev_
 
-_Dí cómo será ese paso_
-
-```
-Da un ejemplo
-```
-
-_Y repite_
+_puedes dirigirte al archivo appsettings.json en la sección ConnectionStrings para modificar lo necesario para que la conexión apunte a la base de datos creada anteriormente_
 
 ```
-hasta finalizar
+ "ConnectionStrings": {
+    "Kalmy": "data source=LAPTOP-3NTPDV2V; initial catalog=KalmyDBDev;persist security info=True; Integrated Security=SSPI;MultipleActiveResultSets=True"
+
+  }
+```
+_Se debe tomar en cuenta si el server local tiene una configuracion especifica para un usuario es necesario que la cadena de conexión los especifique_
+
+```
+ "ConnectionStrings": {
+    "Kalmy": "data source=LAPTOP-3NTPDV2V; initial catalog=KalmyDBDev;User ID=usuario;Password=password;persist security info=True; Integrated Security=SSPI;MultipleActiveResultSets=True"
+
+  }
 ```
 
 _Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
