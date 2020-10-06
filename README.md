@@ -391,56 +391,31 @@ curl -X POST "https://localhost:44336/api/Car/search" -H "accept: */*" -H "Autho
 
 ```
 
-
-### Y las pruebas de estilo de codificación ⌨️
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
-## Despliegue 📦
-
-_Agrega notas adicionales sobre como hacer deploy_
-
 ## Construido con 🛠️
 
-_Menciona las herramientas que utilizaste para crear tu proyecto_
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - El framework web usado
-* [Maven](https://maven.apache.org/) - Manejador de dependencias
-* [ROME](https://rometools.github.io/rome/) - Usado para generar RSS
+_Algunas dependencias usadas dentro del proyecto_
 
-## Contribuyendo 🖇️
-
-Por favor lee el [CONTRIBUTING.md](https://gist.github.com/villanuevand/xxxxxx) para detalles de nuestro código de conducta, y el proceso para enviarnos pull requests.
-
-## Wiki 📖
-
-Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
-
-## Versionado 📌
-
-Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones disponibles, mira los [tags en este repositorio](https://github.com/tu/proyecto/tags).
+```
+Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design -Version 3.1.4
+Install-Package Microsoft.EntityFrameworkCore.Tools -Version 3.1.8
+Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 3.1.8
+Install-Package Microsoft.AspNetCore.Cors
+Install-Package Swashbuckle.AspNetCore -Version 5.5.0
+```
 
 ## Autores ✒️
 
 _Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
 
-* **Cristian Sifuentes** - *Trabajo Inicial* - [villanuevand](https://github.com/CristianSifuentes)
+* **Cristian Sifuentes** - *Trabajo Inicial* - [CristianSifuentes](https://github.com/CristianSifuentes)
 * **Cristian Sifuentes** - *Documentación* 
-
 
 
 ## Expresiones de Gratitud 🎁
 
-* Comenta a otros sobre este proyecto 📢
-* Invita una cerveza 🍺 o un café ☕ a alguien del equipo. 
-* Da las gracias públicamente 🤓.
-* etc.
-
-
+* Gracias por tomarme en cuenta para el test 📢
+* Te agradeceria retroalimentación para poder mejorar en mi carrera 🍺.
 
 ---
 ⌨️ con ❤️ por [CristianSifuentes](https://github.com/CristianSifuentes) 😊
