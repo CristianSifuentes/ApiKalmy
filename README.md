@@ -17,7 +17,8 @@ _Que cosas necesitas para instalar el software y como instalarlas_
 ```
 * Visual studio 2019
 * Sql Server 2018
-* nodejs
+* NodeJS
+* Git
 ```
 
 ### Instalación 🔧
@@ -41,11 +42,24 @@ _Se debe tomar en cuenta si el server local tiene una configuracion especifica p
   }
 ```
 
-_Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
+_Lo siguiente es correr las migraciones para la creación de las tablas, para esto de se debe seleccionar el proyect "Api" en la "Consola de administracion de paquetes" y correr el siguiente comando_
+
+```
+update-database
+```
+
+_Si se obtiene algún error primero hay que asegurarse de habilitar las migraciones en entityFramework_
+
+```
+enable-migrations
+```
+
+_Asegurate que las tablas se crearon en tu manejador de base de datos_
+
 
 ## Ejecutando las pruebas ⚙️
 
-_Explica como ejecutar las pruebas automatizadas para este sistema_
+_El proyecto esta configurado usando swagger, una vez desplegado el proyecto de mostrara una pantalla con los endpoints creados en el proyecto_
 
 ### Analice las pruebas end-to-end 🔩
 
