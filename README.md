@@ -90,13 +90,37 @@ Y con el usuario user sé podra tener acceso a un CRUD para insertar, actualizar
 
 ```
 
-### Analice las pruebas end-to-end 🔩
+### Usuario: "user" "1234" 🔩
 
-_Explica que verifican estas pruebas y por qué_
+_Como se mencionó anteriormente, el usuario "user" con password "1234" permite poder testear el CRUD de Car para ello, lo primero que se debe hacer en logearse con las credenciales para generar el token de autenticacion jwt_
+
+### Login
+
+### Request
+
+`POST api/login/`
 
 ```
-Da un ejemplo
+curl -X POST "https://localhost:44336/api/Login" -H "accept: */*" -H "Content-Type: application/json" -d "{\"UserName\":\"user\",\"Password\":\"1234\"}"
 ```
+### Response 
+
+`POST api/login/`
+
+```
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyIiwiZnVsbE5hbWUiOiJUZXN0IFVzZXIiLCJyb2xlIjoiVXNlciIsImp0aSI6IjIzMTc3Mzg2LWZmMzMtNDYzZC05NjQ5LWRjNTIzMDFjMWQzMiIsImV4cCI6MTYwMTk1MjM5NSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIn0.6QXRbWZbaZ3HjCkaXt7DFe8m0OjRHQ5qX57nDIV7GGo",
+  "userDetails": {
+    "UserName": "user",
+    "FullName": "Test User",
+    "Password": "1234",
+    "UserRole": "User"
+  }
+}
+```
+
+
+
 
 ### Y las pruebas de estilo de codificación ⌨️
 
