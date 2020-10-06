@@ -231,6 +231,167 @@ curl -X DELETE "https://localhost:44336/api/Car/49" -H "accept: */*" -H "Authori
 ```
 
 
+### Usuario: "admin" "1234" 🔩
+
+_Como se mencionó anteriormente, el usuario "admin" con password "1234" permite poder testear el endpoint para la generación del json dependiendo la combinación de "Type", "Brand" y "Model", lo primero que se debe hacer en logearse con las credenciales para generar el token de autenticacion jwt_
+
+### Login
+### Request
+
+`POST api/login/`
+
+```
+curl -X POST "https://localhost:44336/api/Login" -H "accept: */*" -H "Content-Type: application/json" -d "{\"UserName\":\"admin\",\"Password\":\"1234\"}"
+```
+### Response 
+
+```
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyIiwiZnVsbE5hbWUiOiJUZXN0IFVzZXIiLCJyb2xlIjoiVXNlciIsImp0aSI6IjIzMTc3Mzg2LWZmMzMtNDYzZC05NjQ5LWRjNTIzMDFjMWQzMiIsImV4cCI6MTYwMTk1MjM5NSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIn0.6QXRbWZbaZ3HjCkaXt7DFe8m0OjRHQ5qX57nDIV7GGo",
+  "userDetails": {
+    "UserName": "admin",
+    "FullName": "Vaibhav Bhapkar",
+    "Password": "1234",
+    "UserRole": "Admin"
+  }
+}
+```
+
+
+
+### Search dynamic
+#### Request
+
+`POST /api/car/search`
+
+#### Combinaciones posibles
+
+```
+{
+    "parameter1": "Type",
+    "parameter2": ""
+}
+
+{
+    "parameter1": "Type",
+    "parameter2": "Brand"
+}
+
+{
+    "parameter1": "Type",
+    "parameter2": "Model"
+}
+
+
+{
+    "parameter1": "Model",
+    "parameter2": ""
+}
+
+{
+    "parameter1": "Model",
+    "parameter2": "Brand"
+}
+
+{
+    "parameter1": "Model",
+    "parameter2": "Type"
+}
+
+{
+    "parameter1": "Brand",
+    "parameter2": ""
+}
+
+{
+    "parameter1": "Brand",
+    "parameter2": "Model"
+}
+
+{
+    "parameter1": "Brand",
+    "parameter2": "Type"
+}
+```
+
+
+```
+curl -X POST "https://localhost:44336/api/Car/search" -H "accept: */*" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImZ1bGxOYW1lIjoiVmFpYmhhdiBCaGFwa2FyIiwicm9sZSI6IkFkbWluIiwianRpIjoiZWI1NjUwZGYtNjdiNS00NGFlLWFlZDEtMzQzZTI0OTczZTAyIiwiZXhwIjoxNjAxOTU1MDAwLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzNi8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzNi8ifQ.aGRr4ujtklMeNRdDBLCwcLkZcbyIohzUeRbp6YfhF1U" -H "Content-Type: application/json" -d "{\"Parameter1\":\"Type\",\"Parameter2\":\"\"}"
+```
+
+
+#### Response (Dependiendo de la combinación la respuesta es dinámica)
+
+```
+[
+    {
+        "name": "nissan",
+        "value": 6
+    },
+    {
+        "name": "small",
+        "value": 1
+    },
+    {
+        "name": "string",
+        "value": 5
+    },
+    {
+        "name": "tesla",
+        "value": 7
+    }
+]
+```
+
+
+
+```
+[
+    {
+        "name": "nissan",
+        "children": [
+            {
+                "name": 2019,
+                "size": 4
+            },
+            {
+                "name": 2020,
+                "size": 2
+            }
+        ]
+    },
+    {
+        "name": "small",
+        "children": [
+            {
+                "name": 2019,
+                "size": 1
+            }
+        ]
+    },
+    {
+        "name": "string",
+        "children": [
+            {
+                "name": 0,
+                "size": 5
+            }
+        ]
+    },
+    {
+        "name": "tesla",
+        "children": [
+            {
+                "name": 2019,
+                "size": 7
+            }
+        ]
+    }
+]
+
+```
+
+
 ### Y las pruebas de estilo de codificación ⌨️
 
 _Explica que verifican estas pruebas y por qué_
