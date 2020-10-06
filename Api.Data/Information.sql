@@ -16,8 +16,7 @@ INSERT INTO [dbo].[Car]
            ,'nissan'
            ,2019
            ,-1
-           ,null)
-
+           ,-1)
 
 INSERT INTO [dbo].[Car]
            ([CreatedAt]
@@ -30,11 +29,28 @@ INSERT INTO [dbo].[Car]
      VALUES
            (getdate()
            ,getdate()
-           ,'big'
+           ,'small'
            ,'nissan'
            ,2020
            ,-1
-           ,null)
+           ,-1)
+
+INSERT INTO [dbo].[Car]
+           ([CreatedAt]
+           ,[ModifiedAt]
+           ,[Type]
+           ,[Brand]
+           ,[Model]
+           ,[CreationUser]
+           ,[ModificationUser])
+     VALUES
+           (getdate()
+           ,getdate()
+           ,'medium'
+           ,'toyota'
+           ,2018
+           ,-1
+           ,-1)
 
 INSERT INTO [dbo].[Car]
            ([CreatedAt]
@@ -49,15 +65,60 @@ INSERT INTO [dbo].[Car]
            ,getdate()
            ,'medium'
            ,'tesla'
-           ,2018
+           ,2020
            ,-1
-           ,null)
+           ,-1)
+
+INSERT INTO [dbo].[Car]
+           ([CreatedAt]
+           ,[ModifiedAt]
+           ,[Type]
+           ,[Brand]
+           ,[Model]
+           ,[CreationUser]
+           ,[ModificationUser])
+     VALUES
+           (getdate()
+           ,getdate()
+           ,'medium'
+           ,'kia'
+           ,2017
+           ,-1
+           ,-1)
+
+INSERT INTO [dbo].[Car]
+           ([CreatedAt]
+           ,[ModifiedAt]
+           ,[Type]
+           ,[Brand]
+           ,[Model]
+           ,[CreationUser]
+           ,[ModificationUser])
+     VALUES
+           (getdate()
+           ,getdate()
+           ,'big'
+           ,'kia'
+           ,2020
+           ,-1
+           ,-1)
+
+INSERT INTO [dbo].[Car]
+           ([CreatedAt]
+           ,[ModifiedAt]
+           ,[Type]
+           ,[Brand]
+           ,[Model]
+           ,[CreationUser]
+           ,[ModificationUser])
+     VALUES
+           (getdate()
+           ,getdate()
+           ,'big'
+           ,'tesla'
+           ,2019
+           ,-1
+           ,-1)
+
 
 GO
-
-
-
---● Type: {small, medium, big} Define como la proporción o el tamaño, y solo tiene esos tres
---posibles valores.
---● Brand: string. Ejemplo: Honda, Toyota
---● Model: string. Año del auto: 2020, etc
