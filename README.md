@@ -173,7 +173,62 @@ curl -X GET "https://localhost:44336/api/Car/1" -H "accept: application/json" -H
 ```
 
 
+### Post Car
+#### Request
 
+`POST api/car`
+
+```
+curl -X POST "https://localhost:44336/api/Car" -H "accept: text/plain" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyIiwiZnVsbE5hbWUiOiJUZXN0IFVzZXIiLCJyb2xlIjoiVXNlciIsImp0aSI6ImEyY2M4N2M0LThkMjMtNDYyYy1iNzNkLWNjN2ZkOGE4YWU0OSIsImV4cCI6MTYwMTk1MzYxMywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIn0.a3sd11LNbnkMY8Wf_O8yAxq4wZpqiHePvmug_u9-WDs" -H "Content-Type: application/json" -d "{\"Type\":\"big\",\"Brand\":\"small\",\"Model\":2019}"
+```
+
+#### Response 
+
+```
+{
+  "Id": 50,
+  "Type": "big",
+  "Brand": "small",
+  "Model": 2019,
+  "CreatedAt": "2020-10-05T21:37:26.0656991-05:00",
+  "ModifiedAt": "2020-10-05T21:37:26.065702-05:00"
+}
+```
+
+
+
+### Put Car
+#### Request
+
+`PUT api/car/1`
+
+```
+curl -X PUT "https://localhost:44336/api/Car/1" -H "accept: text/plain" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyIiwiZnVsbE5hbWUiOiJUZXN0IFVzZXIiLCJyb2xlIjoiVXNlciIsImp0aSI6ImEyY2M4N2M0LThkMjMtNDYyYy1iNzNkLWNjN2ZkOGE4YWU0OSIsImV4cCI6MTYwMTk1MzYxMywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIn0.a3sd11LNbnkMY8Wf_O8yAxq4wZpqiHePvmug_u9-WDs" -H "Content-Type: application/json" -d "{\"Id\":49,\"Type\":\"small\",\"Brand\":\"tesla\",\"Model\":2020}"
+```
+
+#### Response 
+
+```
+{
+}
+```
+
+
+### Delete Car
+#### Request
+
+`DELETE api/car`
+
+```
+curl -X DELETE "https://localhost:44336/api/Car/49" -H "accept: */*" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyIiwiZnVsbE5hbWUiOiJUZXN0IFVzZXIiLCJyb2xlIjoiVXNlciIsImp0aSI6ImEyY2M4N2M0LThkMjMtNDYyYy1iNzNkLWNjN2ZkOGE4YWU0OSIsImV4cCI6MTYwMTk1MzYxMywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMzYvIn0.a3sd11LNbnkMY8Wf_O8yAxq4wZpqiHePvmug_u9-WDs"
+```
+
+#### Response 
+
+```
+{
+}
+```
 
 
 ### Y las pruebas de estilo de codificación ⌨️
