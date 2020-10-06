@@ -60,7 +60,7 @@ _Dentro de la ruta "ApiKalmy\Api.Data" existe un archivo de nombre Information.s
 
 ## Ejecutando las pruebas ⚙️
 
-_El proyecto esta configurado usando swagger, una vez desplegado el proyecto de mostrara una pantalla con los endpoints creados en el proyecto_
+_El proyecto esta configurado usando swagger, una vez desplegado el proyecto se mostrará una pantalla con los endpoints creados en el proyecto_
 
 
 ### Códigos de respuesta del protocolo HTTP 🔩
@@ -74,6 +74,20 @@ _El proyecto esta configurado usando swagger, una vez desplegado el proyecto de 
 405: Method not allowed
 422: Unprocessable Entity 
 50X: Server Error
+```
+
+###   IMPORTANTE! NOTA: El api esta preparada para 2 usuarios 
+
+```
+usuario: admin
+password: 1234
+
+usuario: user:
+password: 1234
+
+La diferencia principal es que con usuario admin se podrá consultar el endpoint de búsqueda de combinaciones "Type", "Brand" o "Model".
+Y con el usuario user sé podra tener acceso a un CRUD para insertar, actualizar, eliminar o consultar el catalogo de "Car".
+
 ```
 
 ### Analice las pruebas end-to-end 🔩
