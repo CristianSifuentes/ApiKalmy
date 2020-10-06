@@ -82,7 +82,7 @@ _El proyecto esta configurado usando swagger, una vez desplegado el proyecto se 
 usuario: admin
 password: 1234
 
-usuario: user:
+usuario: user
 password: 1234
 
 La diferencia principal es que con usuario admin se podrá consultar el endpoint de búsqueda de combinaciones "Type", "Brand" o "Model".
